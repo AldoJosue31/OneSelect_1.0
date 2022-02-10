@@ -43,6 +43,8 @@ function eliminarOrden (id) {
 let comidaSeleccionada;
 var indice = 1;
 
+var ordentxt = document.getElementById('orden');
+
 const btnHam = document.getElementById('hamburguesa');
 const btnTor = document.getElementById('torta');
 const btnHD = document.getElementById('hotdog');   
@@ -74,8 +76,8 @@ var comidas = [
 
     function AgregarHamburguesa() {
         comidaSeleccionada = comidas.find(item => item.id == 1);
-        document.getElementById('orden').value += indice;
-        document.getElementById('orden').value += comidaSeleccionada.producto;
+        ordentxt.value += indice;
+        ordentxt.value += comidaSeleccionada.producto;
         totalnumero = totalnumero + 20;
         indice = indice + 1;
         total.innerHTML = totalnumero;
@@ -83,8 +85,8 @@ var comidas = [
     
     function AgregarTorta() {
         comidaSeleccionada = comidas.find(item => item.id == 2);
-        document.getElementById('orden').value += indice;
-        document.getElementById('orden').value += comidaSeleccionada.producto;
+        ordentxt.value += indice;
+        ordentxt.value += comidaSeleccionada.producto;
         totalnumero = totalnumero + 25;
         indice = indice + 1;
         total.innerHTML = totalnumero;
@@ -92,8 +94,8 @@ var comidas = [
     
     function AgregarHotDog() {
         comidaSeleccionada = comidas.find(item => item.id == 3);
-        document.getElementById('orden').value += indice;
-        document.getElementById('orden').value += comidaSeleccionada.producto;
+        ordentxt.value += indice;
+        ordentxt.value += comidaSeleccionada.producto;
         totalnumero = totalnumero + 30;
         indice = indice + 1;
         total.innerHTML = totalnumero;
@@ -111,6 +113,7 @@ class GestorOrdenes {
         this.apellidos = document.getElementById('apellidos');
         this.orden = document.getElementById('orden');
         this.cuerpo = document.getElementById('cuerpo');
+        this.btn = document.getElementById('rese');
         this.total;
         this.btnCrearRegistro = document.getElementById('btnCrearRegistro'); 
 
@@ -123,12 +126,14 @@ class GestorOrdenes {
         indice = 1;
         totalnumero = 0;
         total.innerHTML = totalnumero;
+        ordentxt.value = "";
     };
 
 
     agregarEventListeners() {
         this.frmNuevoRegistro.addEventListener('submit', this.crearRegistroOrden.bind(this));
         this.frmNuevoRegistro.addEventListener('submit', this.reset);
+        this.btn.addEventListener('click', this.reset);
     }
 
 

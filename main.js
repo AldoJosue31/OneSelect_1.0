@@ -87,7 +87,8 @@ function createWindow() {
   // Main window loads index.html file
   mainWindow.loadURL('http://localhost:3000')
 
-
+  let menu = Menu.buildFromTemplate(menuAplicacionPlantilla);
+  mainWindow.setMenu(menu);
 
   
   // To maximize the window
@@ -131,6 +132,7 @@ function createChild() {
   // Main window loads index.html file
   win.loadURL('http://localhost:3000/registros')
   // To maximize the window
+
   win.show();
   mainWindow.maximize();
 }
@@ -154,5 +156,5 @@ app.on("window-all-closed", () => {
   }
 });
 
-HOLA
+
 
