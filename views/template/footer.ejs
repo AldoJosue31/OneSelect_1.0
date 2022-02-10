@@ -1,0 +1,21 @@
+</section>
+<script type="text/javascript" src="js/slidebar.js"></script>
+<script type="text/javascript" src="js/herramientas.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const ipc = window.require('electron').ipcRenderer;
+   function Recargar(){
+    ipc.send('RecargarRegistros');  
+   };
+   function dividir(){
+    ipc.send('dividirRegistros');  
+   };
+  
+   
+</script>
+
+</body>
+
+</html>
