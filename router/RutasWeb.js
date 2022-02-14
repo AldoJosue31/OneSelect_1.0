@@ -1,28 +1,12 @@
+
+const data = require('../public/menu');
+var comidas = data.comidas;
 const express = require('express');
-const router = express.Router();
+const router = express.Router(); 
+
 
 router.get("/", (req, res) => {
-    const comidas = [
-      {
-          id: 1,
-          producto: 'Hamburguesa',
-          precio: '30',
-          CDP: 'Hamburguesa'
-      },
-      {
-          id: 2,
-          producto: 'Torta',
-          precio: '30',
-          CDP: 'Torta'
-      },
-      {
-          id: 3,
-          producto: 'Hot Dog',
-          precio: '30',
-          CDP: 'HotDog'
-  
-      },
-  ];  
+    
       res.render("index",{
         comidas : comidas,
       }
@@ -37,6 +21,11 @@ router.get("/", (req, res) => {
   router.get("/covid", (req, res) => {
     res.render("covid",);
   });
+
+  router.get("/productos", (req, res) => {
+    res.render("productos",);
+  });
+  
   
   router.get("/acerca-de", (req, res) => {
     res.render("acerca-de", { version: "1.0.0", desarrollador: "G.A.I.D"});

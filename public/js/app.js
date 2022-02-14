@@ -1,3 +1,20 @@
+// Electron window
+
+const data = require("./public/menu");
+var comidas = data.comidas;
+
+const { ipcMain } = require("electron")
+
+  const ipc = window.require('electron').ipcRenderer;
+   function Recargar(){
+    ipc.send('RecargarRegistros');  
+   };
+   function dividir(){
+    ipc.send('dividirRegistros');  
+   };
+
+// Data base code
+
 var Datastore = require('nedb');
 
 
@@ -39,45 +56,37 @@ function eliminarOrden (id) {
     });
 };
 
+// end data base
+
+//set option notify
+var option = 
+{
+    animation : true,
+    autohide : true,
+    delay : 2000
+};
+
 
 let comidaSeleccionada;
 var indice = 1;
-
-var ordentxt = document.getElementById('orden');
 
 const btnHam = document.getElementById('hamburguesa');
 const btnTor = document.getElementById('torta');
 const btnHD = document.getElementById('hotdog');   
 
-
+var inputOrden = document.getElementById('orden');
 
 var total = document.getElementById('total');
 let totalnumero = 0;
 
 
-var comidas = [
-        {
-            id: 1,
-            producto: ' | Hamburgesa | ',
-            precio: '30'
-        },
-        {
-            id: 2,
-            producto: ' | Torta | ',
-            precio: '30'
-        },
-        {
-            id: 3,
-            producto: ' | Hot Dog | ',
-            precio: '30'
-        },
-    ];
+
 
 
     function AgregarHamburguesa() {
         comidaSeleccionada = comidas.find(item => item.id == 1);
-        ordentxt.value += indice;
-        ordentxt.value += comidaSeleccionada.producto;
+        inputOrden.value += indice;
+        inputOrden.value += comidaSeleccionada.value;
         totalnumero = totalnumero + 20;
         indice = indice + 1;
         total.innerHTML = totalnumero;
@@ -85,8 +94,8 @@ var comidas = [
     
     function AgregarTorta() {
         comidaSeleccionada = comidas.find(item => item.id == 2);
-        ordentxt.value += indice;
-        ordentxt.value += comidaSeleccionada.producto;
+        inputOrden.value += indice;
+        inputOrden.value += comidaSeleccionada.value;
         totalnumero = totalnumero + 25;
         indice = indice + 1;
         total.innerHTML = totalnumero;
@@ -94,8 +103,8 @@ var comidas = [
     
     function AgregarHotDog() {
         comidaSeleccionada = comidas.find(item => item.id == 3);
-        ordentxt.value += indice;
-        ordentxt.value += comidaSeleccionada.producto;
+        inputOrden.value += indice;
+        inputOrden.value += comidaSeleccionada.value;
         totalnumero = totalnumero + 30;
         indice = indice + 1;
         total.innerHTML = totalnumero;
@@ -106,34 +115,44 @@ var hoy = new Date();
 class GestorOrdenes {
     constructor() {
         this.frmNuevoRegistro = document.getElementById('frmNuevoRegistro');
+
         this.registros = document.getElementById('registros');
+
+
         this.fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear();
         this.hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
         this.nombres = document.getElementById('nombres');
         this.apellidos = document.getElementById('apellidos');
         this.orden = document.getElementById('orden');
-        this.cuerpo = document.getElementById('cuerpo');
-        this.btn = document.getElementById('rese');
+        this.boton = document.getElementById('reiniciar');
         this.total;
+
+
         this.btnCrearRegistro = document.getElementById('btnCrearRegistro'); 
 
         this.cargarRegistrosOrden();
         this.agregarEventListeners();
     }
 
+    generarNotificacion(){
+            var toastHTMLElement = document.getElementById( 'EpicToast' );
+            var toastElement = new bootstrap.Toast( toastHTMLElement, option );
+            toastElement.show( );
+    }
     
-    reset() {
+    reiniciarForm() {
         indice = 1;
         totalnumero = 0;
         total.innerHTML = totalnumero;
-        ordentxt.value = "";
+        inputOrden.value = ""
     };
 
 
     agregarEventListeners() {
         this.frmNuevoRegistro.addEventListener('submit', this.crearRegistroOrden.bind(this));
-        this.frmNuevoRegistro.addEventListener('submit', this.reset);
-        this.btn.addEventListener('click', this.reset);
+        this.frmNuevoRegistro.addEventListener('submit', this.generarNotificacion);
+        this.frmNuevoRegistro.addEventListener('submit', this.reiniciarForm);
+     
     }
 
 
@@ -149,6 +168,7 @@ class GestorOrdenes {
 
         this.cargarRegistrosOrden();
         Recargar();
+        generarNotificacion();
 
     }
 

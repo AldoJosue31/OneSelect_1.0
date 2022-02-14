@@ -18,10 +18,13 @@
     "url": "https://github.com/AldoJosue31/OneSelect_1.0/issues"
   },
   "homepage": "https://github.com/AldoJosue31/OneSelect_1.0#readme",
+  "devDependencies": {
+    "electron": "^16.0.5",
+    "electron-builder": "^22.14.13"
+  },
   "dependencies": {
+    "boostrap": "^2.0.0",
     "ejs": "^3.1.6",
-    "electron": "^17.0.0",
-    "electron-builder": "^22.14.13",
     "express": "^4.17.2",
     "git": "^0.1.5",
     "nedb": "^1.8.0"
