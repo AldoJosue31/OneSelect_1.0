@@ -135,7 +135,7 @@ body {
   width: 78px;
 }
 .sidebar .logo-details{
-  height: 60px;
+  height: 80px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -149,6 +149,7 @@ body {
   margin-right: 10px;
   text-align: center;
   line-height: 50px;
+  -webkit-app-region: no-drag;
 }
 .sidebar .logo-details .logo_name{
   font-size: 22px;
@@ -365,7 +366,7 @@ i{
 nav{
   top: 1px;
   right: 1px;
-  height: 40px;
+  height: 60px;
   width: 100%;
   position: absolute;
 }
@@ -387,4 +388,3 @@ nav{
   font-size: 12px;
   line-height: 1.42857;
 }
-

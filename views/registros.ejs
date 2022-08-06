@@ -4,12 +4,12 @@
 <div class="container bg-dark text-light" style="margin-left: 60px;">
     <div class="row">
         <div class="col">
-            <form id="frmNuevoRegistro" class="border border-light p-4">
-                <button class="btn float-end text-light" onclick="dividir()"><i class='bx bx-windows'></i></button>
+            <form id="frmNuevoRegistro" class="border border-light p-4"  style="min-height: 80vh;">
+                <button class="btn float-end text-light" onclick="dividirRegistros()"><i class='bx bx-windows'></i></button>
                 <div class="col">
                     <p class="h3 mb-4 text-center">Registros</p>
-                    <table class="table">
-                        <thead class="container bg-dark bg-gradient">
+                    <table class="table w-100">
+                        <thead class="text-center">
                             <tr>
                                 <th class="text-light">Fecha de creacion</th>
                                 <th class="text-light">Hora de creacion</th>
@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody id="registros">
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -29,4 +29,5 @@
         </div>
     </div>
 </div>
+
 <%- include("template/footer") %>

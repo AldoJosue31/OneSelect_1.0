@@ -1,4 +1,3 @@
-
 const { app, BrowserWindow, ipcMain, Menu } = require("electron")
 const url = require('url')
 const path = require("path")
@@ -11,6 +10,7 @@ app.disableHardwareAcceleration();
   
 let mainWindow;
 let win;
+let Orden;
 
 
 let menuAplicacionPlantilla = [
@@ -88,6 +88,9 @@ function createWindow() {
 
   let menu = Menu.buildFromTemplate(menuAplicacionPlantilla);
   mainWindow.setMenu(menu);
+  mainWindow.on('close', function() { 
+    app.quit();
+  });
 
   
   // To maximize the window
@@ -133,11 +136,54 @@ function createChild() {
   // To maximize the window
 
   win.show();
-  mainWindow.maximize();
 }
 
 ipcMain.on("dividirRegistros", (event, arg) => {
   createChild();
+});
+
+function nuevaVentanaOrden() {
+  Orden = new BrowserWindow({
+    width: 1000,
+    height: 1000,
+    minHeight: 650,
+    minWidth: 825,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: true,
+        titleBarOverlay: {
+            color: '#2f3241',
+            symbolColor: '#74b1be'
+        },
+    // Make sure to add webPreferences with
+    // nodeIntegration and contextIsolation
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+    show: false,
+  });
+
+  Orden.on('show', function() { 
+    mainWindow.loadURL('http://localhost:3000')
+  });
+
+  Orden.on('show', function() { 
+    ipcMain.on("RecargarRegistros", (event, arg) => {
+      mainWindow.reload();
+    });
+  });
+
+  Orden.setIcon(path.join(__dirname, 'assets/Logo_OneSelect_Claro.png'));
+  
+  // Main window loads index.html file
+  Orden.loadURL('http://localhost:3000/index-cliente')
+  // To maximize the window
+
+  Orden.show();
+}
+
+ipcMain.on("dividirIndex", (event, arg) => {
+  nuevaVentanaOrden()
 });
 
 app.whenReady().then(() => {
@@ -154,6 +200,3 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
-
-
-
