@@ -1,28 +1,16 @@
-// Electron window
-
-const data = require("./public/menu");
-var comidas = data.comidas;
-
-const { ipcMain } = require("electron")
-
-  const ipc = window.require('electron').ipcRenderer;
-   function Recargar(){
-    ipc.send('RecargarRegistros');  
-   };
-   function dividir(){
-    ipc.send('dividirRegistros');  
-   };
-
-// Data base code
-
 var Datastore = require('nedb');
-
+var codigo;
+function getCodigo(id){
+    codigo;
+    codigo = id;
+    console.log(codigo);
+}
 
 let bd = new Datastore({
     filename: 'db/ordenes.db',
      autoload: true
     });
-
+    
 function agregarOrden(fecha, hora, nombres, apellidos, orden, total){
     var pedido = {
         fecha: fecha,
@@ -37,6 +25,7 @@ function agregarOrden(fecha, hora, nombres, apellidos, orden, total){
 
     });
 };
+
 function obtenerOrdenes(operacion) {
     bd.find({}, function(err, ordenes){
         if(ordenes){
@@ -49,16 +38,12 @@ function obtenerOrdenes(operacion) {
     });
 };
 
-
 function eliminarOrden (id) {
     bd.remove({_id: id},  {}, function(error, numeroRegistrosEliminados){
 
     });
 };
 
-// end data base
-
-//set option notify
 var option = 
 {
     animation : true,
@@ -66,52 +51,12 @@ var option =
     delay : 2000
 };
 
-
-let comidaSeleccionada;
-var indice = 1;
-
-const btnHam = document.getElementById('hamburguesa');
-const btnTor = document.getElementById('torta');
-const btnHD = document.getElementById('hotdog');   
-
 var inputOrden = document.getElementById('orden');
 
 var total = document.getElementById('total');
-let totalnumero = 0;
-
-
-
-
-
-    function AgregarHamburguesa() {
-        comidaSeleccionada = comidas.find(item => item.id == 1);
-        inputOrden.value += indice;
-        inputOrden.value += comidaSeleccionada.value;
-        totalnumero = totalnumero + 20;
-        indice = indice + 1;
-        total.innerHTML = totalnumero;
-    };
-    
-    function AgregarTorta() {
-        comidaSeleccionada = comidas.find(item => item.id == 2);
-        inputOrden.value += indice;
-        inputOrden.value += comidaSeleccionada.value;
-        totalnumero = totalnumero + 25;
-        indice = indice + 1;
-        total.innerHTML = totalnumero;
-    };
-    
-    function AgregarHotDog() {
-        comidaSeleccionada = comidas.find(item => item.id == 3);
-        inputOrden.value += indice;
-        inputOrden.value += comidaSeleccionada.value;
-        totalnumero = totalnumero + 30;
-        indice = indice + 1;
-        total.innerHTML = totalnumero;
-    };
-
 
 var hoy = new Date();
+
 class GestorOrdenes {
     constructor() {
         this.frmNuevoRegistro = document.getElementById('frmNuevoRegistro');
@@ -140,12 +85,7 @@ class GestorOrdenes {
             toastElement.show( );
     }
     
-    reiniciarForm() {
-        indice = 1;
-        totalnumero = 0;
-        total.innerHTML = totalnumero;
-        inputOrden.value = ""
-    };
+
 
 
     agregarEventListeners() {
@@ -179,7 +119,7 @@ class GestorOrdenes {
             <td><p class="text-light">${orden.nombres}</td>
             <td><p class="text-light">${orden.apellidos}</td>
             <td><p class="text-light">${orden.orden}</td>
-            <td><p class="text-light">${orden.total}</td>
+            <td><p class="text-light">$${orden.total}</td>
             <td><input type="button" class="btn btn-danger btn-sm" onclick="gestorOrdenes.eliminarRegistroOrden('${orden._id}');" value="Eliminar"></td>
         </tr>
         `;
@@ -199,7 +139,6 @@ class GestorOrdenes {
         this.cargarRegistrosOrden();
     }
 }
-
 
 
 let gestorOrdenes = new GestorOrdenes();

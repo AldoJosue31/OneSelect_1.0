@@ -6,8 +6,8 @@ let arrow = document.querySelectorAll(".arrow");
         });
       }
       let sidebar = document.querySelector(".sidebar");
-      let sidebarBtn = document.querySelector("#AEW");
-      console.log(sidebarBtn);
+      let sidebarBtn = document.querySelector("#logo_btn");
+      let SSiderbarBtn = document.querySelector('#icon_btn');
       sidebarBtn.addEventListener("click", ()=>{
         sidebar.classList.toggle("close");
       });

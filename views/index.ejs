@@ -1,11 +1,11 @@
 <%- include("template/head", {tituloweb: "pagina de Inicio"}) %>
 <%- include("template/sidebar") %>
-<div class="container bg-dark text-light" style="margin-left: 60px;">
+<div class="container bg-dark text-light text-center" style="margin-left: 60px;">
     <div class="row">
         <div class="col">
             <form id="frmNuevoRegistro" class="border border-light p-4">
-
-                <p class="h3 mb-4 text-left">Nueva Orden</p>
+              <button class="btn float-end text-light" onclick="dividirIndex()"><i class='bx bx-windows'></i></button>
+                <p class="h3 mb-4 text-left">Nueva orden</p>
 
                 <input type="text" id="nombres" class="form-control mb-4 bg-dark text-light" placeholder="Nombres" required>
 
@@ -18,24 +18,52 @@
                   </div>
                 </div>
                 
-                <div class="container w-25 mb-2 p-9 border border-light float-end">TOTAL <div class="text-center d-flex flex-row"> $ <div id="total" class="text-center"> 0 </div></div></div>
-                <br><br><br>
-                <div class="container-md">
-                  <div class="row row-cols-3">
-                    <% comidas.forEach(function(comida) { %>
-                    <div class="col border border-light p-3">
-                      <div class="card bg-dark text-light">
-                        <div class="card-body">
-                          <h5 class="card-title font-weight-bold"><%= comida.producto %></h5>
-                          <br>
-                          <a href="#" class="btn btn-primary"onclick="Agregar<%= comida.CDP %>()">Agregar</a>
-                        </div>
-                      </div>
-                    </div>
-                    <% }); %>
+                <div class=" bg-dark border border-light border-4 border-bottom-0 h-100 rounded" style="width: 25vh; position: fixed ;bottom: -3%; right: -20px; z-index: 20;">
+                  <div id="cajaCarrito" style="height: 85%; overflow: auto;">
+
+          
+
+     
+
+
+
+
+
+
+
+                    
+
+
+
                   </div>
+                  <div class="modal-header text-center align-middle order border-light border-4 border-top w-100" >
+                    <h6 class="modal-title w-100">Total a pagar </h6>
+                    <div class="input-group mb-3 text-center mt-2 d-flex justify-content-center">
+                      <span class="input-group-text bg-dark text-light">$</span>
+                      <span id="total" class="input-group-text bg-dark text-light">0</span>
+                    </div>
+                  </div>
+                  <br>
+
+              </div>
+
+               <!--  <div class="container bg-dark border border-light border-4 border-bottom-0 h-25" style="width: 25vh; position: fixed ;bottom: 0px; right: 20px; z-index: 20;">
+                  <div class="modal-header">
+                    <h6 class="modal-title">Total a pagar</h6>
+                  </div>
+                  <br>
+                <div class="input-group mb-3 text-center mt-2 d-flex justify-content-center">
+                  <span class="input-group-text bg-dark text-light">$</span>
+                  <span id="total" class="input-group-text bg-dark text-light">0</span>
                 </div>
-                <button id="btnCrearRegistro" class="btn w-100 btn-success btn-block my-4" type="submit">Crear Orden</button>
+              </div> -->
+
+
+
+                <div class="container-md">
+                  <div id="SecProductos" class="row row-cols-3"></div>
+                </div>
+                <button id="btnCrearRegistro" class="btn w-50 btn-success btn-block my-4" type="submit">Crear Orden</button>
             </form>
         </div>
     </div>
@@ -50,5 +78,13 @@
       La orden se genero con exito!
   </div>
 </div>
+<form id="frmNuevoProducto"></form>
+
+                     
+</div>
+
+
+
+
 
 <%- include("template/footer") %>
